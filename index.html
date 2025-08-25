@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Фотогалерея из 10 изображений</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background: linear-gradient(135deg, #6a11cb 0%, #2575fc 100%);
+            color: #333;
+            min-height: 100vh;
+            padding: 20px;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        header {
+            text-align: center;
+            margin-bottom: 40px;
+            color: white;
+            padding: 20px;
+            background: rgba(0, 0, 0, 0.2);
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+        }
+        
+        h1 {
+            font-size: 2.8rem;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+        }
+        
+        .subtitle {
+            font-size: 1.2rem;
+            opacity: 0.9;
+        }
+        
+        .gallery {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 25px;
+            margin-bottom: 40px;
+        }
+        
+        .photo-card {
+            background: white;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        
+        .photo-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.25);
+        }
+        
+        .photo {
+            width: 100%;
+            height: 250px;
+            object-fit: cover;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .photo-info {
+            padding: 20px;
+        }
+        
+        .photo-title {
+            font-size: 1.3rem;
+            margin-bottom: 10px;
+            color: #2c3e50;
+        }
+        
+        .photo-desc {
+            color: #7f8c8d;
+            line-height: 1.5;
+        }
+        
+        .footer {
+            text-align: center;
+            color: white;
+            padding: 20px;
+            margin-top: 40px;
+            font-size: 1.1rem;
+        }
+        
+        @media (max-width: 768px) {
+            .gallery {
+                grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+                gap: 20px;
+            }
+            
+            h1 {
+                font-size: 2.2rem;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .gallery {
+                grid-template-columns: 1fr;
+            }
+            
+            h1 {
+                font-size: 1.8rem;
+            }
+            
+            .container {
+                padding: 10px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Моя фотогалерея</h1>
+            <p class="subtitle">10 красивых изображений для вашего вдохновения</p>
+        </header>
+        
+        <div class="gallery">
+            <!-- Фото 1 -->
+            <div class="photo-card">
+                <img src="https://picsum.photos/id/1/600/400" alt="Ноутбук на столе" class="photo">
+                <div class="photo-info">
+                    <h3 class="photo-title">Рабочее пространство</h3>
+                    <p class="photo-desc">Современный ноутбук на деревянном столе с чашкой кофе.</p>
+                </div>
+            </div>
+            
+            <!-- Фото 2 -->
+            <div class="photo-card">
+                <img src="https://picsum.photos/id/10/600/400" alt="Лесная река" class="photo">
+                <div class="photo-info">
+                    <h3 class="photo-title">Лесной пейзаж</h3>
+                    <p class="photo-desc">Спокойная река, протекающая через густой зеленый лес.</p>
+                </div>
+            </div>
+            
+            <!-- Фото 3 -->
+            <div class="photo-card">
+                <img src="https://picsum.photos/id/100/600/400" alt="Пляж" class="photo">
+                <div class="photo-info">
+                    <h3 class="photo-title">Морское побережье</h3>
+                    <p class="photo-desc">Чистый песчаный пляж с бирюзовой водой и пальмами.</p>
+                </div>
+            </div>
+            
+            <!-- Фото 4 -->
+            <div class="photo-card">
+                <img src="https://picsum.photos/id/1000/600/400" alt="Горная вершина" class="photo">
+                <div class="photo-info">
+                    <h3 class="photo-title">Горный пейзаж</h3>
+                    <p class="photo-desc">Величественные горные вершины, покрытые снегом.</p>
+                </div>
+            </div>
+            
+            <!-- Фото 5 -->
+            <div class="photo-card">
+                <img src="https://picsum.photos/id/1001/600/400" alt="Скалистый берег" class="photo">
+                <div class="photo-info">
+                    <h3 class="photo-title">Скалистое побережье</h3>
+                    <p class="photo-desc">Волны, разбивающиеся о скалы на закате.</p>
+                </div>
+            </div>
+            
+            <!-- Фото 6 -->
+            <div class="photo-card">
+                <img src="https://picsum.photos/id/1003/600/400" alt="Олень в лесу" class="photo">
+                <div class="photo-info">
+                    <h3 class="photo-title">Дикая природа</h3>
+                    <p class="photo-desc">Олень в естественной среде обитания среди деревьев.</p>
+                </div>
+            </div>
+            
+            <!-- Фото 7 -->
+            <div class="photo-card">
+                <img src="https://picsum.photos/id/1015/600/400" alt="Ущелье" class="photo">
+                <div class="photo-info">
+                    <h3 class="photo-title">Глубокое ущелье</h3>
+                    <p class="photo-desc">Вид на глубокое ущелье с высоты птичьего полета.</p>
+                </div>
+            </div>
+            
+            <!-- Фото 8 -->
+            <div class="photo-card">
+                <img src="https://picsum.photos/id/1018/600/400" alt="Горная тропа" class="photo">
+                <div class="photo-info">
+                    <h3 class="photo-title">Горная тропинка</h3>
+                    <p class="photo-desc">Извилистая тропа, ведущая через горный хребет.</p>
+                </div>
+            </div>
+            
+            <!-- Фото 9 -->
+            <div class="photo-card">
+                <img src="https://picsum.photos/id/1025/600/400" alt="Енот" class="photo">
+                <div class="photo-info">
+                    <h3 class="photo-title">Лесной енот</h3>
+                    <p class="photo-desc">Милый енот с любопытным взглядом на дереве.</p>
+                </div>
+            </div>
+            
+            <!-- Фото 10 -->
+            <div class="photo-card">
+                <img src="https://picsum.photos/id/1039/600/400" alt="Туманный лес" class="photo">
+                <div class="photo-info">
+                    <h3 class="photo-title">Туманное утро</h3>
+                    <p class="photo-desc">Туман над лесом в ранние утренние часы.</p>
+                </div>
+            </div>
+        </div>
+        
+        <div class="footer">
+            <p>© 2023 Фотогалерея | Создано для GitHub Pages</p>
+        </div>
+    </div>
+</body>
+</html>
