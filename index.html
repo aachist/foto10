@@ -59,6 +59,7 @@
             overflow: hidden;
             box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
             transition: transform 0.3s ease, box-shadow 0.3s ease;
+            cursor: pointer;
         }
         
         .photo-card:hover {
@@ -71,6 +72,11 @@
             height: 250px;
             object-fit: cover;
             border-bottom: 1px solid #eee;
+            transition: transform 0.3s ease;
+        }
+        
+        .photo-card:hover .photo {
+            transform: scale(1.05);
         }
         
         .photo-info {
@@ -107,6 +113,104 @@
             font-size: 1.1rem;
         }
         
+        /* Стили для полноэкранного просмотра */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.95);
+            overflow: hidden;
+            animation: fadeIn 0.3s ease;
+        }
+        
+        .modal-content {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100%;
+            padding: 20px;
+        }
+        
+        .modal-image {
+            max-width: 90%;
+            max-height: 90%;
+            object-fit: contain;
+            border-radius: 8px;
+            box-shadow: 0 0 30px rgba(255, 255, 255, 0.1);
+            animation: zoomIn 0.3s ease;
+        }
+        
+        .close {
+            position: absolute;
+            top: 25px;
+            right: 35px;
+            color: white;
+            font-size: 40px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: color 0.3s ease;
+        }
+        
+        .close:hover {
+            color: #ff4757;
+        }
+        
+        .image-info {
+            position: absolute;
+            bottom: 30px;
+            left: 0;
+            width: 100%;
+            text-align: center;
+            color: white;
+            padding: 15px;
+            background: rgba(0, 0, 0, 0.7);
+        }
+        
+        .nav-btn {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background: rgba(255, 255, 255, 0.2);
+            color: white;
+            border: none;
+            padding: 20px;
+            font-size: 24px;
+            cursor: pointer;
+            border-radius: 50%;
+            transition: background 0.3s ease;
+            width: 60px;
+            height: 60px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .nav-btn:hover {
+            background: rgba(255, 255, 255, 0.3);
+        }
+        
+        .prev {
+            left: 30px;
+        }
+        
+        .next {
+            right: 30px;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        
+        @keyframes zoomIn {
+            from { transform: scale(0.9); opacity: 0; }
+            to { transform: scale(1); opacity: 1; }
+        }
+        
         @media (max-width: 768px) {
             .gallery {
                 grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
@@ -115,6 +219,27 @@
             
             h1 {
                 font-size: 2.2rem;
+            }
+            
+            .nav-btn {
+                padding: 15px;
+                width: 50px;
+                height: 50px;
+                font-size: 20px;
+            }
+            
+            .prev {
+                left: 15px;
+            }
+            
+            .next {
+                right: 15px;
+            }
+            
+            .close {
+                top: 15px;
+                right: 25px;
+                font-size: 30px;
             }
         }
         
@@ -130,19 +255,29 @@
             .container {
                 padding: 10px;
             }
+            
+            .modal-image {
+                max-width: 95%;
+                max-height: 70%;
+            }
+            
+            .image-info {
+                bottom: 10px;
+                padding: 10px;
+            }
         }
     </style>
 </head>
 <body>
     <div class="container">
         <header>
-            <h1>Калуга в фотографиях</h1>
+            <h1>Моя фотогалерея</h1>
             <p class="subtitle">10 красивых изображений для вашего вдохновения</p>
         </header>
         
         <div class="gallery">
             <!-- Фото 1 -->
-            <div class="photo-card">
+            <div class="photo-card" onclick="openModal('images/photo1.jpg', 'Фото 1')">
                 <img src="images/photo1.jpg" alt="Фото 1" class="photo">
                 <div class="photo-info">
                     <h3 class="photo-title">Фото 1</h3>
@@ -152,7 +287,7 @@
             </div>
             
             <!-- Фото 2 -->
-            <div class="photo-card">
+            <div class="photo-card" onclick="openModal('images/photo2.jpg', 'Фото 2')">
                 <img src="images/photo2.jpg" alt="Фото 2" class="photo">
                 <div class="photo-info">
                     <h3 class="photo-title">Фото 2</h3>
@@ -162,7 +297,7 @@
             </div>
             
             <!-- Фото 3 -->
-            <div class="photo-card">
+            <div class="photo-card" onclick="openModal('images/photo3.jpg', 'Фото 3')">
                 <img src="images/photo3.jpg" alt="Фото 3" class="photo">
                 <div class="photo-info">
                     <h3 class="photo-title">Фото 3</h3>
@@ -172,7 +307,7 @@
             </div>
             
             <!-- Фото 4 -->
-            <div class="photo-card">
+            <div class="photo-card" onclick="openModal('images/photo4.jpg', 'Фото 4')">
                 <img src="images/photo4.jpg" alt="Фото 4" class="photo">
                 <div class="photo-info">
                     <h3 class="photo-title">Фото 4</h3>
@@ -182,7 +317,7 @@
             </div>
             
             <!-- Фото 5 -->
-            <div class="photo-card">
+            <div class="photo-card" onclick="openModal('images/photo5.jpg', 'Фото 5')">
                 <img src="images/photo5.jpg" alt="Фото 5" class="photo">
                 <div class="photo-info">
                     <h3 class="photo-title">Фото 5</h3>
@@ -192,7 +327,7 @@
             </div>
             
             <!-- Фото 6 -->
-            <div class="photo-card">
+            <div class="photo-card" onclick="openModal('images/photo6.jpg', 'Фото 6')">
                 <img src="images/photo6.jpg" alt="Фото 6" class="photo">
                 <div class="photo-info">
                     <h3 class="photo-title">Фото 6</h3>
@@ -202,7 +337,7 @@
             </div>
             
             <!-- Фото 7 -->
-            <div class="photo-card">
+            <div class="photo-card" onclick="openModal('images/photo7.jpg', 'Фото 7')">
                 <img src="images/photo7.jpg" alt="Фото 7" class="photo">
                 <div class="photo-info">
                     <h3 class="photo-title">Фото 7</h3>
@@ -212,7 +347,7 @@
             </div>
             
             <!-- Фото 8 -->
-            <div class="photo-card">
+            <div class="photo-card" onclick="openModal('images/photo8.jpg', 'Фото 8')">
                 <img src="images/photo8.jpg" alt="Фото 8" class="photo">
                 <div class="photo-info">
                     <h3 class="photo-title">Фото 8</h3>
@@ -222,7 +357,7 @@
             </div>
             
             <!-- Фото 9 -->
-            <div class="photo-card">
+            <div class="photo-card" onclick="openModal('images/photo9.jpg', 'Фото 9')">
                 <img src="images/photo9.jpg" alt="Фото 9" class="photo">
                 <div class="photo-info">
                     <h3 class="photo-title">Фото 9</h3>
@@ -232,7 +367,7 @@
             </div>
             
             <!-- Фото 10 -->
-            <div class="photo-card">
+            <div class="photo-card" onclick="openModal('images/photo10.jpg', 'Фото 10')">
                 <img src="images/photo10.jpg" alt="Фото 10" class="photo">
                 <div class="photo-info">
                     <h3 class="photo-title">Фото 10</h3>
@@ -246,5 +381,91 @@
             <p>© 2023 Фотогалерея | Создано для GitHub Pages</p>
         </div>
     </div>
+
+    <!-- Модальное окно для полноэкранного просмотра -->
+    <div id="imageModal" class="modal">
+        <span class="close" onclick="closeModal()">&times;</span>
+        <button class="nav-btn prev" onclick="changeImage(-1)">&#10094;</button>
+        <div class="modal-content">
+            <img id="modalImage" class="modal-image" src="" alt="">
+        </div>
+        <button class="nav-btn next" onclick="changeImage(1)">&#10095;</button>
+        <div class="image-info">
+            <h3 id="modalTitle"></h3>
+            <p id="modalFilename"></p>
+        </div>
+    </div>
+
+    <script>
+        let currentImageIndex = 0;
+        const images = [
+            { src: 'images/photo1.jpg', title: 'Фото 1', filename: 'photo1.jpg' },
+            { src: 'images/photo2.jpg', title: 'Фото 2', filename: 'photo2.jpg' },
+            { src: 'images/photo3.jpg', title: 'Фото 3', filename: 'photo3.jpg' },
+            { src: 'images/photo4.jpg', title: 'Фото 4', filename: 'photo4.jpg' },
+            { src: 'images/photo5.jpg', title: 'Фото 5', filename: 'photo5.jpg' },
+            { src: 'images/photo6.jpg', title: 'Фото 6', filename: 'photo6.jpg' },
+            { src: 'images/photo7.jpg', title: 'Фото 7', filename: 'photo7.jpg' },
+            { src: 'images/photo8.jpg', title: 'Фото 8', filename: 'photo8.jpg' },
+            { src: 'images/photo9.jpg', title: 'Фото 9', filename: 'photo9.jpg' },
+            { src: 'images/photo10.jpg', title: 'Фото 10', filename: 'photo10.jpg' }
+        ];
+
+        function openModal(imageSrc, imageTitle) {
+            const modal = document.getElementById('imageModal');
+            const modalImage = document.getElementById('modalImage');
+            const modalTitle = document.getElementById('modalTitle');
+            const modalFilename = document.getElementById('modalFilename');
+            
+            // Находим индекс текущего изображения
+            currentImageIndex = images.findIndex(img => img.src === imageSrc);
+            
+            modalImage.src = imageSrc;
+            modalTitle.textContent = imageTitle;
+            modalFilename.textContent = images[currentImageIndex].filename;
+            
+            modal.style.display = 'block';
+            document.body.style.overflow = 'hidden'; // Блокируем прокрутку фона
+        }
+
+        function closeModal() {
+            const modal = document.getElementById('imageModal');
+            modal.style.display = 'none';
+            document.body.style.overflow = 'auto'; // Восстанавливаем прокрутку
+        }
+
+        function changeImage(direction) {
+            currentImageIndex += direction;
+            
+            // Зацикливаем навигацию
+            if (currentImageIndex >= images.length) currentImageIndex = 0;
+            if (currentImageIndex < 0) currentImageIndex = images.length - 1;
+            
+            const modalImage = document.getElementById('modalImage');
+            const modalTitle = document.getElementById('modalTitle');
+            const modalFilename = document.getElementById('modalFilename');
+            
+            modalImage.src = images[currentImageIndex].src;
+            modalTitle.textContent = images[currentImageIndex].title;
+            modalFilename.textContent = images[currentImageIndex].filename;
+        }
+
+        // Закрытие модального окна по клику вне изображения
+        document.getElementById('imageModal').addEventListener('click', function(e) {
+            if (e.target === this) {
+                closeModal();
+            }
+        });
+
+        // Навигация с помощью клавиатуры
+        document.addEventListener('keydown', function(e) {
+            const modal = document.getElementById('imageModal');
+            if (modal.style.display === 'block') {
+                if (e.key === 'Escape') closeModal();
+                if (e.key === 'ArrowLeft') changeImage(-1);
+                if (e.key === 'ArrowRight') changeImage(1);
+            }
+        });
+    </script>
 </body>
 </html>
