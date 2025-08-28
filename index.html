@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Фотогалерея из 10 изображений</title>
+    <title>Калуга: История в объективе</title>
     <style>
         * {
             margin: 0;
@@ -13,10 +13,58 @@
         }
         
         body {
-            background: linear-gradient(135deg, #6a11cb 0%, #2575fc 100%);
+            background: #0a0e27;
             color: #333;
             min-height: 100vh;
             padding: 20px;
+            position: relative;
+            overflow-x: hidden;
+        }
+        
+        /* Анимированный градиентный фон */
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(125deg, #667eea 0%, #764ba2 25%, #f093fb 50%, #c471e5 75%, #667eea 100%);
+            background-size: 400% 400%;
+            animation: gradientShift 15s ease infinite;
+            z-index: -2;
+        }
+        
+        /* Эффект звездного неба */
+        body::after {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: 
+                radial-gradient(2px 2px at 20% 30%, white, transparent),
+                radial-gradient(2px 2px at 60% 70%, white, transparent),
+                radial-gradient(1px 1px at 50% 50%, white, transparent),
+                radial-gradient(1px 1px at 80% 10%, white, transparent),
+                radial-gradient(2px 2px at 90% 60%, white, transparent);
+            background-size: 200% 200%;
+            animation: starsMove 100s linear infinite;
+            z-index: -1;
+            opacity: 0.5;
+        }
+        
+        @keyframes gradientShift {
+            0%, 100% { background-position: 0% 50%; }
+            25% { background-position: 50% 0%; }
+            50% { background-position: 100% 50%; }
+            75% { background-position: 50% 100%; }
+        }
+        
+        @keyframes starsMove {
+            from { transform: translateY(0); }
+            to { transform: translateY(-100%); }
         }
         
         .container {
@@ -25,25 +73,80 @@
             padding: 20px;
         }
         
+        /* Плавающие частицы */
+        .particle {
+            position: fixed;
+            pointer-events: none;
+            opacity: 0.5;
+            z-index: -1;
+        }
+        
+        .particle::before {
+            content: '';
+            position: absolute;
+            width: 10px;
+            height: 10px;
+            background: rgba(255, 255, 255, 0.5);
+            border-radius: 50%;
+            animation: float 20s infinite;
+        }
+        
+        @keyframes float {
+            0%, 100% {
+                transform: translateY(0) translateX(0) rotate(0deg);
+                opacity: 0;
+            }
+            10% {
+                opacity: 1;
+            }
+            90% {
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(-1000px) translateX(100px) rotate(720deg);
+                opacity: 0;
+            }
+        }
+        
         header {
             text-align: center;
             margin-bottom: 40px;
             color: white;
-            padding: 20px;
-            background: rgba(0, 0, 0, 0.2);
-            border-radius: 15px;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            padding: 30px;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            animation: slideDown 1s ease;
+        }
+        
+        @keyframes slideDown {
+            from {
+                transform: translateY(-50px);
+                opacity: 0;
+            }
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
         }
         
         h1 {
-            font-size: 2.8rem;
-            margin-bottom: 10px;
-            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+            font-size: 3.2rem;
+            margin-bottom: 15px;
+            text-shadow: 3px 3px 6px rgba(0, 0, 0, 0.4);
+            background: linear-gradient(45deg, #fff, #e0e0ff);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
         }
         
         .subtitle {
-            font-size: 1.2rem;
-            opacity: 0.9;
+            font-size: 1.3rem;
+            opacity: 0.95;
+            color: #e0e0ff;
+            letter-spacing: 1px;
         }
         
         .gallery {
@@ -54,17 +157,43 @@
         }
         
         .photo-card {
-            background: white;
-            border-radius: 12px;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(5px);
+            border-radius: 15px;
             overflow: hidden;
-            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            transition: all 0.3s ease;
             cursor: pointer;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            animation: fadeInUp 0.8s ease backwards;
+        }
+        
+        .photo-card:nth-child(1) { animation-delay: 0.1s; }
+        .photo-card:nth-child(2) { animation-delay: 0.2s; }
+        .photo-card:nth-child(3) { animation-delay: 0.3s; }
+        .photo-card:nth-child(4) { animation-delay: 0.4s; }
+        .photo-card:nth-child(5) { animation-delay: 0.5s; }
+        .photo-card:nth-child(6) { animation-delay: 0.6s; }
+        .photo-card:nth-child(7) { animation-delay: 0.7s; }
+        .photo-card:nth-child(8) { animation-delay: 0.8s; }
+        .photo-card:nth-child(9) { animation-delay: 0.9s; }
+        .photo-card:nth-child(10) { animation-delay: 1s; }
+        
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
         }
         
         .photo-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.25);
+            transform: translateY(-10px) scale(1.02);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+            background: rgba(255, 255, 255, 1);
         }
         
         .photo {
@@ -84,14 +213,19 @@
         }
         
         .photo-title {
-            font-size: 1.3rem;
+            font-size: 1.4rem;
             margin-bottom: 10px;
-            color: #2c3e50;
+            background: linear-gradient(45deg, #667eea, #764ba2);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            font-weight: 600;
         }
         
         .photo-desc {
-            color: #7f8c8d;
-            line-height: 1.5;
+            color: #5a6c7d;
+            line-height: 1.6;
+            font-size: 0.95rem;
         }
         
         .filename {
@@ -271,114 +405,114 @@
 <body>
     <div class="container">
         <header>
-            <h1>Калуга в фотографиях</h1>
-            <p class="subtitle">10 красивых изображений для вашего вдохновения</p>
+            <h1>Калуга: История в объективе</h1>
+            <p class="subtitle">Путешествие по самым живописным местам города космонавтики</p>
         </header>
         
         <div class="gallery">
             <!-- Фото 1 -->
-            <div class="photo-card" onclick="openModal('images/photo1.jpg', 'Фото 1')">
-                <img src="images/photo1.jpg" alt="Фото 1" class="photo">
+            <div class="photo-card" onclick="openModal('images/photo1.jpg', 'Закат над Окой')">
+                <img src="images/photo1.jpg" alt="Закат над Окой" class="photo">
                 <div class="photo-info">
-                    <h3 class="photo-title">Фото 1</h3>
-                    <p class="photo-desc">Первое изображение в нашей галерее, демонстрирующее красоту момента.</p>
+                    <h3 class="photo-title">Закат над Окой</h3>
+                    <p class="photo-desc">Волшебный момент, когда солнце окрашивает воды Оки в золотые оттенки, создавая незабываемую симфонию света и цвета.</p>
                     <div class="filename">photo1.jpg</div>
                 </div>
             </div>
             
             <!-- Фото 2 -->
-            <div class="photo-card" onclick="openModal('images/photo2.jpg', 'Фото 2')">
-                <img src="images/photo2.jpg" alt="Фото 2" class="photo">
+            <div class="photo-card" onclick="openModal('images/photo2.jpg', 'Каменный мост')">
+                <img src="images/photo2.jpg" alt="Каменный мост" class="photo">
                 <div class="photo-info">
-                    <h3 class="photo-title">Фото 2</h3>
-                    <p class="photo-desc">Второе изображение, запечатлевшее уникальный момент времени.</p>
+                    <h3 class="photo-title">Каменный мост</h3>
+                    <p class="photo-desc">Величественный старинный виадук через овраг Березуйский — самый крупный каменный мост в России, свидетель истории с 1785 года.</p>
                     <div class="filename">photo2.jpg</div>
                 </div>
             </div>
             
             <!-- Фото 3 -->
-            <div class="photo-card" onclick="openModal('images/photo3.jpg', 'Фото 3')">
-                <img src="images/photo3.jpg" alt="Фото 3" class="photo">
+            <div class="photo-card" onclick="openModal('images/photo3.jpg', 'Музей космонавтики')">
+                <img src="images/photo3.jpg" alt="Музей космонавтики" class="photo">
                 <div class="photo-info">
-                    <h3 class="photo-title">Фото 3</h3>
-                    <p class="photo-desc">Третья фотография в коллекции, передающая эмоции и настроение.</p>
+                    <h3 class="photo-title">Музей космонавтики</h3>
+                    <p class="photo-desc">Уникальный музей, созданный при участии Циолковского, где хранится история покорения космоса и мечты о звездах.</p>
                     <div class="filename">photo3.jpg</div>
                 </div>
             </div>
             
             <!-- Фото 4 -->
-            <div class="photo-card" onclick="openModal('images/photo4.jpg', 'Фото 4')">
-                <img src="images/photo4.jpg" alt="Фото 4" class="photo">
+            <div class="photo-card" onclick="openModal('images/photo4.jpg', 'Троицкий собор')">
+                <img src="images/photo4.jpg" alt="Троицкий собор" class="photo">
                 <div class="photo-info">
-                    <h3 class="photo-title">Фото 4</h3>
-                    <p class="photo-desc">Четвертое изображение, отличающееся композицией и цветовой гаммой.</p>
+                    <h3 class="photo-title">Троицкий собор</h3>
+                    <p class="photo-desc">Жемчужина русского зодчества XVII века с уникальными росписями, возвышающаяся над городом своими золотыми куполами.</p>
                     <div class="filename">photo4.jpg</div>
                 </div>
             </div>
             
             <!-- Фото 5 -->
-            <div class="photo-card" onclick="openModal('images/photo5.jpg', 'Фото 5')">
-                <img src="images/photo5.jpg" alt="Фото 5" class="photo">
+            <div class="photo-card" onclick="openModal('images/photo5.jpg', 'Парк Циолковского')">
+                <img src="images/photo5.jpg" alt="Парк Циолковского" class="photo">
                 <div class="photo-info">
-                    <h3 class="photo-title">Фото 5</h3>
-                    <p class="photo-desc">Пятая фотография, демонстрирующая мастерство фотографа.</p>
+                    <h3 class="photo-title">Парк Циолковского</h3>
+                    <p class="photo-desc">Зеленый оазис в центре города, где под сенью вековых лип мечтал о космических полетах великий ученый.</p>
                     <div class="filename">photo5.jpg</div>
                 </div>
             </div>
             
             <!-- Фото 6 -->
-            <div class="photo-card" onclick="openModal('images/photo6.jpg', 'Фото 6')">
-                <img src="images/photo6.jpg" alt="Фото 6" class="photo">
+            <div class="photo-card" onclick="openModal('images/photo6.jpg', 'Гостиный двор')">
+                <img src="images/photo6.jpg" alt="Гостиный двор" class="photo">
                 <div class="photo-info">
-                    <h3 class="photo-title">Фото 6</h3>
-                    <p class="photo-desc">Шестое изображение, завершающее первую половину коллекции.</p>
+                    <h3 class="photo-title">Гостиный двор</h3>
+                    <p class="photo-desc">Архитектурный ансамбль XVIII века в стиле классицизма, где когда-то кипела купеческая жизнь старой Калуги.</p>
                     <div class="filename">photo6.jpg</div>
                 </div>
             </div>
             
             <!-- Фото 7 -->
-            <div class="photo-card" onclick="openModal('images/photo7.jpg', 'Фото 7')">
-                <img src="images/photo7.jpg" alt="Фото 7" class="photo">
+            <div class="photo-card" onclick="openModal('images/photo7.jpg', 'Дом-музей Циолковского')">
+                <img src="images/photo7.jpg" alt="Дом-музей Циолковского" class="photo">
                 <div class="photo-info">
-                    <h3 class="photo-title">Фото 7</h3>
-                    <p class="photo-desc">Седьмая фотография, открывающая вторую половину галереи.</p>
+                    <h3 class="photo-title">Дом-музей Циолковского</h3>
+                    <p class="photo-desc">Скромный деревянный дом на берегу Оки, где родились идеи, изменившие представление человечества о космосе.</p>
                     <div class="filename">photo7.jpg</div>
                 </div>
             </div>
             
             <!-- Фото 8 -->
-            <div class="photo-card" onclick="openModal('images/photo8.jpg', 'Фото 8')">
-                <img src="images/photo8.jpg" alt="Фото 8" class="photo">
+            <div class="photo-card" onclick="openModal('images/photo8.jpg', 'Площадь Победы')">
+                <img src="images/photo8.jpg" alt="Площадь Победы" class="photo">
                 <div class="photo-info">
-                    <h3 class="photo-title">Фото 8</h3>
-                    <p class="photo-desc">Восьмое изображение, отличающееся оригинальностью идеи.</p>
+                    <h3 class="photo-title">Площадь Победы</h3>
+                    <p class="photo-desc">Монументальный мемориал с Вечным огнем — место памяти и скорби, где калужане чтят подвиг защитников Отечества.</p>
                     <div class="filename">photo8.jpg</div>
                 </div>
             </div>
             
             <!-- Фото 9 -->
-            <div class="photo-card" onclick="openModal('images/photo9.jpg', 'Фото 9')">
-                <img src="images/photo9.jpg" alt="Фото 9" class="photo">
+            <div class="photo-card" onclick="openModal('images/photo9.jpg', 'Театральная площадь')">
+                <img src="images/photo9.jpg" alt="Театральная площадь" class="photo">
                 <div class="photo-info">
-                    <h3 class="photo-title">Фото 9</h3>
-                    <p class="photo-desc">Девятая фотография, предпоследняя в нашей коллекции.</p>
+                    <h3 class="photo-title">Театральная площадь</h3>
+                    <p class="photo-desc">Культурное сердце города с величественным зданием драматического театра, где искусство встречается с историей.</p>
                     <div class="filename">photo9.jpg</div>
                 </div>
             </div>
             
             <!-- Фото 10 -->
-            <div class="photo-card" onclick="openModal('images/photo10.jpg', 'Фото 10')">
-                <img src="images/photo10.jpg" alt="Фото 10" class="photo">
+            <div class="photo-card" onclick="openModal('images/photo10.jpg', 'Вечерняя Калуга')">
+                <img src="images/photo10.jpg" alt="Вечерняя Калуга" class="photo">
                 <div class="photo-info">
-                    <h3 class="photo-title">Фото 10</h3>
-                    <p class="photo-desc">Завершающее изображение галереи, оставляющее приятное впечатление.</p>
+                    <h3 class="photo-title">Вечерняя Калуга</h3>
+                    <p class="photo-desc">Город засыпает под покровом звезд, огни фонарей создают романтическую атмосферу старинных улочек.</p>
                     <div class="filename">photo10.jpg</div>
                 </div>
             </div>
         </div>
         
         <div class="footer">
-            <p>© 2023 Фотогалерея | Создано для GitHub Pages</p>
+            <p>© 2024 Калуга: История в объективе | Создано с любовью к родному городу</p>
         </div>
     </div>
 
@@ -397,18 +531,34 @@
     </div>
 
     <script>
+        // Создание плавающих частиц
+        function createParticles() {
+            const particlesCount = 30;
+            for (let i = 0; i < particlesCount; i++) {
+                const particle = document.createElement('div');
+                particle.className = 'particle';
+                particle.style.left = Math.random() * 100 + '%';
+                particle.style.animationDelay = Math.random() * 20 + 's';
+                particle.style.animationDuration = (15 + Math.random() * 10) + 's';
+                document.body.appendChild(particle);
+            }
+        }
+        
+        // Запуск анимации частиц после загрузки страницы
+        window.addEventListener('load', createParticles);
+        
         let currentImageIndex = 0;
         const images = [
-            { src: 'images/photo1.jpg', title: 'Фото 1', filename: 'photo1.jpg' },
-            { src: 'images/photo2.jpg', title: 'Фото 2', filename: 'photo2.jpg' },
-            { src: 'images/photo3.jpg', title: 'Фото 3', filename: 'photo3.jpg' },
-            { src: 'images/photo4.jpg', title: 'Фото 4', filename: 'photo4.jpg' },
-            { src: 'images/photo5.jpg', title: 'Фото 5', filename: 'photo5.jpg' },
-            { src: 'images/photo6.jpg', title: 'Фото 6', filename: 'photo6.jpg' },
-            { src: 'images/photo7.jpg', title: 'Фото 7', filename: 'photo7.jpg' },
-            { src: 'images/photo8.jpg', title: 'Фото 8', filename: 'photo8.jpg' },
-            { src: 'images/photo9.jpg', title: 'Фото 9', filename: 'photo9.jpg' },
-            { src: 'images/photo10.jpg', title: 'Фото 10', filename: 'photo10.jpg' }
+            { src: 'images/photo1.jpg', title: 'Закат над Окой', filename: 'photo1.jpg' },
+            { src: 'images/photo2.jpg', title: 'Каменный мост', filename: 'photo2.jpg' },
+            { src: 'images/photo3.jpg', title: 'Музей космонавтики', filename: 'photo3.jpg' },
+            { src: 'images/photo4.jpg', title: 'Троицкий собор', filename: 'photo4.jpg' },
+            { src: 'images/photo5.jpg', title: 'Парк Циолковского', filename: 'photo5.jpg' },
+            { src: 'images/photo6.jpg', title: 'Гостиный двор', filename: 'photo6.jpg' },
+            { src: 'images/photo7.jpg', title: 'Дом-музей Циолковского', filename: 'photo7.jpg' },
+            { src: 'images/photo8.jpg', title: 'Площадь Победы', filename: 'photo8.jpg' },
+            { src: 'images/photo9.jpg', title: 'Театральная площадь', filename: 'photo9.jpg' },
+            { src: 'images/photo10.jpg', title: 'Вечерняя Калуга', filename: 'photo10.jpg' }
         ];
 
         function openModal(imageSrc, imageTitle) {
